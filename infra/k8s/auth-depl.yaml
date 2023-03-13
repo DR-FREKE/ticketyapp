@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: solomonndi96/auth ## use this when using docker desktop context solomonndi96/auth
+          env: ## get the secret data and set as an environment variable in the pod
+            - name: JWT_KEY ## name of the environment variable that will show inside the container. this is equivalent to JWT_KEY=some key if you were using the normal env file
+              valueFrom: ## tell kubernetes that the value for the envronment variable should be from the secret we just created
+                secretKeyRef:
+                  name: jwt-secret ## name of the secret which is found in the metadata->name of secret yaml file or the name we use in the imperative command
+                  key: jwt-key
+            - name: MONGO_POD_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: prod_db_url
+            - name: MONGO_ATLAS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dev_db_url
+
+## service creation
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: auth
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 6000
+      targetPort: 9001

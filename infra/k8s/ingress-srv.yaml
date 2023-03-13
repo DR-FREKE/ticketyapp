@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: tickety.dev
+      http:
+        paths:
+          - path: /api/v1/usr/?(.*)
+            pathType: Prefix
+            backend: ## where the services are defined
+              service:
+                name: auth-srv
+                port:
+                  number: 6000
+          - path: /api/v1/notification/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-srv ## clusterIP service
+                port:
+                  number: 2005 ## clusterIP services port we defined while creating the clusterIP service and setting port
+          - path: /?.*
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 7000

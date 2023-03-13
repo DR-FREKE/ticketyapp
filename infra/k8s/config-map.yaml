@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  prod_db_url: mongodb://auth-mongo-srv:27017/auth
+  dev_db_url: mongodb+srv://solomonndi96:solagbaby96@cluster0.qtper.mongodb.net/?retryWrites=true&w=majority
