@@ -19,13 +19,13 @@ export interface SignUpErrorState {
   field: string;
 }
 
-type ReturnType = {
+type AppRequest = {
   errors: SignUpErrorState[];
   makeRequest: (data: DataType) => Promise<void>;
   loading: boolean;
 };
 
-export const useRequest = ({ url, method, onSuccess }: RequestType): ReturnType => {
+export const useRequest = ({ url, method, onSuccess }: RequestType): AppRequest => {
   const [errors, setErrors] = useState<SignUpErrorState[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const {error, addError} = useError()
