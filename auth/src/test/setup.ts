@@ -49,10 +49,13 @@ afterAll(async () => {
  * global.signup() for testing any request that's supposed to be authorized
  */
 global.signup = async () => {
+  const firstname = 'Ndifereke';
+  const lastname = 'Solomon';
   const email = 'solomonndi96@gmail.com';
   const password = 'solagbaby';
+  const phone = '08077946785';
 
-  const response = await request(app).post('/api/v1/usr/auth/signup').send({ email, password }).expect(201);
+  const response = await request(app).post('/api/v1/usr/auth/signup').send({ firstname, lastname, email, password, phone }).expect(201);
   const cookie = response.get('Set-Cookie');
 
   return cookie;

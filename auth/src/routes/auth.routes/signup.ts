@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { validateRequestBody } from '../../middleware/body-validator';
 import { ValidationChain, validationResult } from 'express-validator';
-import { RequestValidationError } from '../../errors/request-validator-error';
+import { RequestValidationError } from '@sntickety/common-lib';
 import { User } from '../../model/user';
-import { BadRequestError } from '../../errors/bad-request-error';
+import { BadRequestError } from '@sntickety/common-lib';
 import { SignUpController } from '../../controller/signup-controller';
-import { validateRequest } from '../../middleware/validate-request';
+import { validateRequest } from '@sntickety/common-lib';
 
 const router: Router = Router();
 const validate: ValidationChain[] = validateRequestBody();

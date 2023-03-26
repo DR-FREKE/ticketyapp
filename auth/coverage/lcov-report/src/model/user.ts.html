@@ -23,30 +23,48 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
                 <span class="strong">46.66% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>7/15</span>
+=======
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>14/14</span>
+>>>>>>> 77661b284bb410af4ebec3ae87cc1ed6c5bccc1f
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/3</span>
+=======
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/3</span>
+>>>>>>> 77661b284bb410af4ebec3ae87cc1ed6c5bccc1f
             </div>
         
             
             <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
                 <span class="strong">46.66% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>7/15</span>
+=======
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>14/14</span>
+>>>>>>> 77661b284bb410af4ebec3ae87cc1ed6c5bccc1f
             </div>
         
             
@@ -61,7 +79,11 @@
             </div>
         </template>
     </div>
+<<<<<<< HEAD
     <div class='status-line low'></div>
+=======
+    <div class='status-line high'></div>
+>>>>>>> 77661b284bb410af4ebec3ae87cc1ed6c5bccc1f
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -224,9 +246,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,13 +261,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -324,10 +346,10 @@ const userSchema = new Schema(
   {
     toJSON: {
       // use this transform the original object of what mongoose returns to what object we want
-<span class="fstat-no" title="function not covered" >      transform(</span>doc, ret) {
-<span class="cstat-no" title="statement not covered" >        ret.id = ret._id;</span>
-<span class="cstat-no" title="statement not covered" >        delete ret._id;</span>
-<span class="cstat-no" title="statement not covered" >        delete ret.password;</span>
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        // delete ret.password;
       },
       versionKey: false,
     },
@@ -335,18 +357,18 @@ const userSchema = new Schema(
 );
 &nbsp;
 // create a middleware that will always intercept the hashing of password and saving the document to database
-userSchema.pre('save', <span class="fstat-no" title="function not covered" >async function (d</span>one) {
+userSchema.pre('save', async function (done) {
   // hash password before saving to DB
 &nbsp;
   // check if password has been modified before hashing.
   //this is to prevent hashing of an already hashed password maybe because of an update in user profile
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (this.isModified('password')) {</span>
-    const hashed = <span class="cstat-no" title="statement not covered" >await PasswordHash.toHash(this.get('password'));</span> // get the password from the user document by calling the get() method
+  if (this.isModified('password')) {
+    const hashed = await PasswordHash.toHash(this.get('password')); // get the password from the user document by calling the get() method
 &nbsp;
     //update the password to the hashed password by calling the set() method to update the user document
-<span class="cstat-no" title="statement not covered" >    this.set('password', hashed);</span>
+    this.set('password', hashed);
   }
-<span class="cstat-no" title="statement not covered" >  done();</span>
+  done();
 });
 &nbsp;
 // how we add a function to a model in mongoose but typescript still won't understand this. To let typescript
@@ -373,7 +395,11 @@ export { User };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+<<<<<<< HEAD
                 at 2023-03-26T19:03:54.175Z
+=======
+                at 2023-03-26T03:16:16.457Z
+>>>>>>> 77661b284bb410af4ebec3ae87cc1ed6c5bccc1f
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -5,7 +5,7 @@ const signout_url = '/api/v1/usr/auth/signout';
 
 describe('run test case for signout', () => {
   const mockSignUp = async () => {
-    await request(app).post('/api/v1/usr/auth/signup').send({ email: 'solomonndi96@gmail.com', password: 'solagbaby' }).expect(201);
+    await request(app).post('/api/v1/usr/auth/signup').send({ firstname: 'Ndifereke', lastname: 'Solomon', email: 'solomonndi96@gmail.com', password: 'solagbaby', phone: '08077946784' }).expect(201);
   };
 
   it('should return 200 and cookies should be empty', async () => {

@@ -3,8 +3,8 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 import cookieSession from 'cookie-session';
 import { appRoute } from './routes/app.router';
-import { errorHandler } from './middleware/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { errorHandler } from '@sntickety/common-lib';
+import { NotFoundError } from '@sntickety/common-lib';
 // import { json } from "body-parser";
 
 const app = express();
