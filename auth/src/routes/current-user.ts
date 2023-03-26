@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
-import { NotAuthorizedError } from '../errors/not-authorized-error';
-import { authorize } from '../middleware/authorization-middleware';
+import { NotAuthorizedError } from '@sntickety/common-lib';
+import { authorize } from '@sntickety/common-lib';
 
 const router: Router = Router();
 

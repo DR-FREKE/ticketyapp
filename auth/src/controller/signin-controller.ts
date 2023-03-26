@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError } from '@sntickety/common-lib';
 import { User } from '../model/user';
 import { PasswordHash } from '../services/password';
 

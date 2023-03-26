@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
+import { DatabaseConnectionError } from '@sntickety/common-lib';
 
 export const dbConnector = async (): Promise<void> => {
   const url = String(process.env.MONGO_ATLAS_URL_2);
