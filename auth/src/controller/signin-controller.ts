@@ -21,7 +21,7 @@ export class SignInController {
       throw new BadRequestError('Invalid Credentials');
     }
 
-    const password_match = PasswordHash.comparePassword(existingUser.password, password);
+    const password_match = await PasswordHash.comparePassword(existingUser.password, password);
     if (!password_match) throw new BadRequestError('Invalid Credentials');
 
     // if all good, generate jwt
