@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError } from '@sntickety/common-lib';
 import { User } from '../model/user';
 import { PasswordHash } from '../services/password';
 
@@ -21,7 +21,7 @@ export class SignInController {
       throw new BadRequestError('Invalid Credentials');
     }
 
-    const password_match = PasswordHash.comparePassword(existingUser.password, password);
+    const password_match = await PasswordHash.comparePassword(existingUser.password, password);
     if (!password_match) throw new BadRequestError('Invalid Credentials');
 
     // if all good, generate jwt
