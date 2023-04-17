@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { DatabaseConnectionError } from '@sntickety/common-lib';
 
 export const dbConnector = async (): Promise<void> => {
-  const url = String(process.env.MONGO_ATLAS_URL_2);
+  const url = String(process.env.MONGO_POD_URL);
   try {
     await mongoose.connect(url); // auth is the actual db name that will be created in the pod
     console.log('connected to db...');

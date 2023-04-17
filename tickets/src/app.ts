@@ -2,11 +2,12 @@ import express, { json } from 'express';
 import 'express-async-errors';
 import dotenv from 'dotenv';
 import cookieSession from 'cookie-session';
-import { appRoute } from './routes/app.router';
-import { errorHandler, NotFoundError } from '@sntickety/common-lib';
-// import { json } from "body-parser";
+import { NotFoundError, errorHandler } from '@sntickety/common-lib';
 
+// create express instance
 const app = express();
+
+// connect env variables
 dotenv.config();
 
 // set app middleware
@@ -27,7 +28,7 @@ app.use(
 );
 
 // setup route middleware
-app.use('/api/v1/usr', appRoute);
+app.get('/api/vi/tickets/home', (req, res) => res.send('Welcome to tickety Ticket service'));
 app.all('*', () => {
   throw new NotFoundError();
 });

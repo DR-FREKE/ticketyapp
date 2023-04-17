@@ -1,10 +1,11 @@
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, useEffect, useState } from 'react';
 import { ChangeHandler, Control, Controller } from 'react-hook-form';
 import { Fieldset, PassType } from './form.style';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import PhoneInput from 'react-phone-input-2';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { SignUpErrorState } from '../../../hooks/request-hook';
+import { useError } from '@/hooks/error-hook';
 
 interface TextFieldProps {
   defaultValue?: string;
@@ -19,13 +20,18 @@ interface TextFieldProps {
 type Ref = HTMLInputElement;
 
 export const TextField = React.forwardRef<Ref, TextFieldProps>((props, ref): JSX.Element => {
+  const { error } = useError();
+
+  useEffect(() => {
+    if (error.length > 0) alert(JSON.stringify(error));
+  }, [error]);
   return (
     <Fieldset>
       <legend>{props.label}</legend>
       <input ref={ref} type={props.type || 'text'} name={props.name} onChange={props.onChange} className="focus:shadow-outline shadow-sm" />
-      {props.error != undefined &&
-        props.error.length > 0 &&
-        props.error?.map(content =>
+      {error != undefined &&
+        error.length > 0 &&
+        error?.map(content =>
           content.field == props.name ? (
             <span key={content.message} className="text-red-400 flex items-center gap-x-[0.15rem] mt-[0.20rem] text-xs">
               <AiOutlineInfoCircle className="text-xs" />

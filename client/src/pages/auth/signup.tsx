@@ -1,9 +1,10 @@
 import { PasswordField, PhoneField, TextField } from '@/components/widgets/Form/FormComponent';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppButton } from '@/components/widgets/Button/Button';
 import { MethodType, useRequest } from '@/hooks/request-hook';
 import Router from 'next/router';
+import { useError } from '@/hooks/error-hook';
 
 export type RegisterInput = {
   firstname: string;
@@ -16,10 +17,15 @@ export type RegisterInput = {
 const SignUpPage = (): JSX.Element => {
   const { register, handleSubmit, control } = useForm<RegisterInput>({ mode: 'onChange' });
   const { makeRequest, errors, loading } = useRequest({ url: '/api/v1/usr/auth/signup', method: MethodType.Post, onSuccess: () => Router.push('/home/home') });
+  const { addError, error } = useError();
 
   const onSubmit: SubmitHandler<RegisterInput> = async data => {
     makeRequest(data);
   };
+
+  useEffect(() => {
+    if (errors.length > 0) addError(errors);
+  }, [errors]);
 
   return (
     <div className="w-full max-w-xs">
@@ -28,7 +34,7 @@ const SignUpPage = (): JSX.Element => {
         <p className="text-xs text-purple-400">please complete your signup process</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded px-6 pt-6 pb-8 mb-4">
-        <TextField label="Firstname" {...register('firstname')} error={errors} />
+        <TextField label="Firstname" {...register('firstname')} />
         <TextField label="Lastname" {...register('lastname')} error={errors} />
         <TextField label="Email" type="email" {...register('email')} error={errors} />
         <PasswordField label="Password" {...register('password')} error={errors} />

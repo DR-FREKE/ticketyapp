@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { SignUpErrorState } from './request-hook';
 
 type ErrorType = {
-  errors: SignUpErrorState[];
+  error: SignUpErrorState[];
   addError: Function;
 };
 
 export const useError = (): ErrorType => {
-  const [errors, setError] = useState<SignUpErrorState[]>([]);
+  const [error, setError] = useState<SignUpErrorState[]>([]);
 
-  const addError = (error: SignUpErrorState[]): void => {
-    setError(error);
+  const addError = (error_data: SignUpErrorState[]): void => {
+    setError(error_data);
   };
 
-  return { addError, errors };
+  return { addError, error };
 };
