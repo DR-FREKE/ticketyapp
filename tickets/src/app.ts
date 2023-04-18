@@ -3,6 +3,7 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 import cookieSession from 'cookie-session';
 import { NotFoundError, errorHandler } from '@sntickety/common-lib';
+import { appRoute } from './routes/app.route';
 
 // create express instance
 const app = express();
@@ -29,6 +30,7 @@ app.use(
 
 // setup route middleware
 app.get('/api/vi/tickets/home', (req, res) => res.send('Welcome to tickety Ticket service'));
+app.use('/api/v1/tickets', appRoute);
 app.all('*', () => {
   throw new NotFoundError();
 });

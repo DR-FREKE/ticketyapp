@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --poll src/index.ts"
+    "start": "ts-node-dev --poll src/index.ts",
+    "test": "jest --watchAll --no-cache --verbose --coverage",
+    "test:ci": "jest"
   },
   "jest": {
     "preset": "ts-jest",
