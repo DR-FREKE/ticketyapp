@@ -5,3 +5,4 @@ metadata:
 data:
   prod_db_url: mongodb://auth-mongo-srv:27017/auth
   dev_db_url: mongodb+srv://solomonndi96:solagbaby96@cluster0.qtper.mongodb.net/?retryWrites=true&w=majority
+  prod_ticket_db_url: mongodb://tickets-mongo-srv:27017/tickets

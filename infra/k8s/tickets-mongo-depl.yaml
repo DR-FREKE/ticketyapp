@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-mongo-depl
+  name: tickets-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-mongo
+      app: tickets-mongo
   template:
     metadata:
       labels:
-        app: auth-mongo
+        app: tickets-mongo
     spec:
       containers:
-        - name: auth-mongo
-          image: mongo # coming from docker hub
+        - name: tickets-mongo
+          image: mongo # coming from dockerhub
 
-## mongo service creation that allows other service be able to communicate with mongo
+## create service for mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-mongo-srv
+  name: tickets-mongo-srv
 spec:
   type: ClusterIP
   selector:
-    app: auth-mongo
+    app: tickets-mongo
   ports:
-    - name: auth-mongo # can be any name
+    - name: tickets-mongo
       protocol: TCP
       port: 27017 # port for mongo image we got from docker hub
       targetPort: 27017

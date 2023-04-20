@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets
+  template:
+    metadata:
+      labels:
+        app: tickets
+    spec:
+      containers:
+        - name: tickets
+          image: solomonndi96/tickets
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt-key
+            - name: MONGO_POD_URL_TICKETS
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: prod_ticket_db_url
+
+## service creation
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: tickets
+  ports:
+    - name:
+      protocol: TCP
+      port: 4001
+      targetPort: 3009

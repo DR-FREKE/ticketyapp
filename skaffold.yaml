@@ -26,6 +26,14 @@ build:
         manual:
           - src: 'src/**/*.py'
             dest: .
+    - image: solomonndi96/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: solomonndi96/client
       context: client
       docker:
