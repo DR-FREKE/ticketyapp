@@ -25,7 +25,7 @@ app.add_middleware(
 );
 
 ## set route middleware
-app.include_router(notification_router.router, prefix="/api/v1", tags=["notification"])
+app.include_router(notification_router.router, prefix="/api/v1/notification", tags=["notification"])
 
 @app.get("/api/v1/notification/welcome")
 async def root():

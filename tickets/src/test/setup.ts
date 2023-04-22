@@ -1,6 +1,11 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
+import request from 'supertest';
+
+declare global {
+  var signup: () => Promise<string[]>;
+}
 
 let mongo: MongoMemoryServer;
 
@@ -34,3 +39,16 @@ afterAll(async () => {
   }
   await mongoose.connection.close();
 });
+
+global.signup = async () => {
+  const firstname = 'Ndifereke';
+  const lastname = 'Solomon';
+  const email = 'solomonndi96@gmail.com';
+  const password = 'solagbaby';
+  const phone = '08077946785';
+
+  const response = await request(app).post('https://tickety.dev/api/v1/usr/auth/signup').send({ firstname, lastname, email, password, phone }).expect(201);
+  const cookie = response.get('Set-Cookie');
+
+  return cookie;
+};
