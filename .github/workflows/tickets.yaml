@@ -8,4 +8,4 @@ jobs: ## defines the things we want to do whenever a pull_request is created, re
     runs-on: ubuntu-latest # start up a virtual machine or a container running on ubuntu OS
     steps: # things to do
       - uses: actions/checkout@v2 # takes all our code inside of out project and run some series of command which are defined below
-      - run: cd auth && yarn install && yarn test:ci
+      - run: cd tickets && yarn install && yarn test:ci
