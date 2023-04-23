@@ -1,4 +1,4 @@
-name: test ## name of the action
+name: auth ## name of the action
 
 on: ## determines when the action should run
   pull_request # here it runs whenever there is a pull request...it can run on PUSH, PULL_REQUEST, FORK
