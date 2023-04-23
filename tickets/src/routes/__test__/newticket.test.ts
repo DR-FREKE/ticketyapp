@@ -10,12 +10,9 @@ describe('run test cases for tickets', () => {
     expect(response.status).not.toEqual(404);
   });
 
-  it('should not be accessed if user is not signed in', async () => {
+  it('should not be accessed if user is not signed in or cookie not provided', async () => {
     /** TODO */
-    // const cookie = await global.signup();
     await request(app).post(ticket_url).send({}).expect(401);
-
-    // expect(response.body.currentUser.email).toEqual('solomonndi96@gmail.com');
   });
 
   it('should be accessed if user is signed in', async () => {

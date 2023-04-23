@@ -4,7 +4,7 @@ import { app } from '../app';
 import request from 'supertest';
 
 declare global {
-  var signup: () => Promise<string[]>;
+  var signup: () => string[];
 }
 
 let mongo: MongoMemoryServer;
@@ -40,15 +40,20 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signup = async () => {
-  const firstname = 'Ndifereke';
-  const lastname = 'Solomon';
-  const email = 'solomonndi96@gmail.com';
-  const password = 'solagbaby';
-  const phone = '08077946785';
+global.signup = () => {
+  /** because we can't make request to the auth service or we are trying to avoid a synchronous way of communication
+   * to the auth service because of the problems that comes with that or even the problem that comes is making request
+   * during test (response time and latency issues); what we can do is do a mock function that mimicks the creating of jwt and cookies
+   * just like the signup function.
+   */
 
-  const response = await request(app).post('https://tickety.dev/api/v1/usr/auth/signup').send({ firstname, lastname, email, password, phone }).expect(201);
-  const cookie = response.get('Set-Cookie');
-
-  return cookie;
+  // create payload we can use to sign jwt...remember to import jsonwebtoken
+  const credentials = {
+    firstname: 'Ndifereke',
+    lastname: 'Solomon',
+    email: 'solomonndi96@gmail.com',
+    password: 'solagbaby',
+    phone: '08077946785',
+  };
+  return [''];
 };
