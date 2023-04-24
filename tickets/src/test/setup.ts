@@ -1,6 +1,12 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
+import request from 'supertest';
+import jwt from 'jsonwebtoken';
+
+declare global {
+  var signup: () => string[];
+}
 
 let mongo: MongoMemoryServer;
 
@@ -10,6 +16,8 @@ let mongo: MongoMemoryServer;
  */
 // beforeAll is a hook function and whatever you pass inside will run before all our test gets executed
 beforeAll(async () => {
+  process.env.JWT_KEY = 'asdfgh'; // cus in most of logic we try to access the JWT_KEY and if in our test cases this is not setup, it will eventually fail
+
   mongo = await MongoMemoryServer.create(); // create instance of mongo in memory
   const mongoURI = mongo.getUri(); // generate URL from mongomemoryserver
 
@@ -34,3 +42,32 @@ afterAll(async () => {
   }
   await mongoose.connection.close();
 });
+
+global.signup = () => {
+  /** because we can't make request to the auth service or we are trying to avoid a synchronous way of communication
+   * to the auth service because of the problems that comes with that or even the problem that comes is making request
+   * during test (response time and latency issues); what we can do is do a mock function that mimicks the creating of jwt and cookies
+   * just like the signup function.
+   */
+
+  // create payload we can use to sign jwt...remember to import jsonwebtoken
+  const credentials = {
+    id: '1234jgk67',
+    email: 'solomonndi96@gmail.com',
+  };
+
+  // create the jwt
+  const token = jwt.sign(credentials, process.env.JWT_KEY!); // again the exclamation mark is to tell typescript that process.env.JWT_KEY is defined and it is in our beforeAll hook.
+
+  //create session object as {jwt:MY_TOKEN}
+  const session = { jwt: token };
+
+  //turn session into JSON because it was in javascript object
+  const sessionJSON = JSON.stringify(session);
+
+  // take JSON and encode it to base64
+  const cookie_base64 = Buffer.from(sessionJSON).toString('base64');
+
+  // return string that is the cookie with encoded data. always return cookie as an array of string
+  return [`session=${cookie_base64}`];
+};

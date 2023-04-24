@@ -12,5 +12,8 @@ describe('run test case for signout', () => {
     await mockSignUp();
     const response = await request(app).post(signout_url).send({}).expect(200);
     expect(response.get('Set-Cookie')).toBeDefined();
+    /** OR
+     * expect(response.get('Set-Cookie)[0]).toEqual("a string....we can print the response to see this string")
+     */
   });
 });

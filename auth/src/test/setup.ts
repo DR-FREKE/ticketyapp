@@ -7,6 +7,15 @@ declare global {
   var signup: () => Promise<string[]>;
 }
 
+// DON'T DO THIS BECAUSE OF THE TYPESCRIPT ERROR "ELEMENT IMPLICITY HAS AN 'ANY' TYPE BECAUSE TYPE 'TYPEOF GLOBALTHIS' HAS NO INDEX"
+// declare global {
+//   namespace NodeJS {
+//     export interface Global {
+//       signup(): Promise<string[]>;
+//     }
+//   }
+// }
+
 let mongo: MongoMemoryServer;
 
 /** before all our different test starts up, create an instance of the mongodb-memory-server
