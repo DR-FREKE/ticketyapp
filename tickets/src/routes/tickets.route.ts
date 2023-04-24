@@ -8,7 +8,7 @@ router.get('/all-tickets', authorize, (req: Request, res: Response) => {
 });
 
 router.post('/create-ticket', authorize, async (req: Request, res: Response) => {
-  res.send('create tickets');
+  res.send({ message: 'create tickets' });
 });
 
 export { router as tickerRouter };

@@ -9,6 +9,8 @@ describe('run test case to get users', () => {
   it('should respond with details about the current user', async () => {
     const cookie = await global.signup();
     const response = await request(app).get(currentuser_url).set('Cookie', cookie).send().expect(200);
+
+    console.log('val', response.body);
     expect(response.body.currentUser.email).toEqual('solomonndi96@gmail.com');
   });
 
