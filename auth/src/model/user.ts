@@ -60,7 +60,7 @@ const userSchema = new Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        // delete ret.password;
+        delete ret.password;
       },
       versionKey: false,
     },

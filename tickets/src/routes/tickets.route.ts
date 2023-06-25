@@ -1,6 +1,6 @@
 import { authorize, validateRequest } from '@sntickety/common-lib';
 import { Router, Request, Response } from 'express';
-import { validateTicketsBody } from '../../middleware/body-validator';
+import { validateTicketsBody } from '../middleware/body-validator';
 
 const router: Router = Router();
 const validate = validateTicketsBody();

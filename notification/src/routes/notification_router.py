@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException;
 from typing import Any, Optional
+import matplotlib.pyplot as plt
 
 router = APIRouter(
     prefix="/notification",
