@@ -11,6 +11,7 @@ router = APIRouter(
 
 fake_items_db = {"plumbus": {"name": "Plumbus"}, "gun": {"name": "Portal Gun"}}
 
+
 @router.get("/all_messages")
 async def get_all_notification()->dict[str, dict[str, str]]:
     return fake_items_db

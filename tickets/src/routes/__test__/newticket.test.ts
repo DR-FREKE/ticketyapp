@@ -42,7 +42,7 @@ describe('run test cases for tickets', () => {
   it('should create a ticket with valid data given', async () => {
     /** TODO */
     const cookie = global.signup();
-    const response = await request(app).post(ticket_url).set('Cookie', cookie).send({ title: 'some title', price: 20 }).expect(200);
+    const response = await request(app).post(ticket_url).set('Cookie', cookie).send({ title: 'some title', price: 20 }).expect(201);
 
     expect(response.body.message).toEqual('created tickets');
   });
