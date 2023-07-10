@@ -1,5 +1,6 @@
 import { app } from '../../app';
 import request from 'supertest';
+import { Ticket } from '../../model/tickets';
 
 const ticket_url = '/api/v1/tickets/create-ticket';
 
@@ -41,8 +42,17 @@ describe('run test cases for tickets', () => {
 
   it('should create a ticket with valid data given', async () => {
     /** TODO */
+    // first check if there's any available ticket
+    let ticket = await Ticket.find({});
+    expect(ticket.length).toEqual(0);
+
     const cookie = global.signup();
     const response = await request(app).post(ticket_url).set('Cookie', cookie).send({ title: 'some title', price: 20 }).expect(201);
+
+    // after the api is called, check if a ticket was added by checking the length of tickets in the db
+    ticket = await Ticket.find({});
+    expect(ticket.length).toBeGreaterThan(0);
+    expect(ticket[0].title).toEqual('some title');
 
     expect(response.body.message).toEqual('created tickets');
   });

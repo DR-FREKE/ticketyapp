@@ -1,6 +1,6 @@
 import { Schema, model, Model, Document } from 'mongoose';
 
-interface ticketAttr {
+interface TicketAttr {
   title: string;
   price: string;
   userId: string;
@@ -14,7 +14,7 @@ interface TicketDoc extends Document {
 }
 
 interface TicketModel extends Model<TicketDoc> {
-  build: (attr: ticketAttr) => TicketDoc;
+  build: (attr: TicketAttr) => TicketDoc;
 }
 
 const ticketSchema = new Schema(
@@ -24,7 +24,7 @@ const ticketSchema = new Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     userId: {
@@ -43,7 +43,7 @@ const ticketSchema = new Schema(
   }
 );
 
-ticketSchema.statics.build = (attr: ticketAttr) => {
+ticketSchema.statics.build = (attr: TicketAttr) => {
   return new Ticket(attr);
 };
 
