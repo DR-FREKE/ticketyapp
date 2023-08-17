@@ -24,7 +24,7 @@ spec:
                 name: notification-srv ## clusterIP service
                 port:
                   number: 2005 ## clusterIP services port we defined while creating the clusterIP service and setting port
-          - path: /api/v1/tickets/?(.*)
+          - path: /api/v1/tkts/?(.*)
             pathType: Prefix
             backend:
               service:

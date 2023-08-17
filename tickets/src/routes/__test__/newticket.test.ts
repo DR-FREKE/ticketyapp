@@ -2,9 +2,9 @@ import { app } from '../../app';
 import request from 'supertest';
 import { Ticket } from '../../model/tickets';
 
-const ticket_url = '/api/v1/tickets/create-ticket';
+const ticket_url = '/api/v1/tkts/tickets';
 
-describe('run test cases for tickets', () => {
+describe('run test cases for creating new tickets', () => {
   it('should have a route called /api/v1/tickets for creating tickets', async () => {
     /** TODO */
     const response = await request(app).post(ticket_url).send({});

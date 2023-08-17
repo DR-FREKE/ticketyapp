@@ -1,9 +1,7 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { validateRequestBody } from '../../middleware/body-validator';
-import { ValidationChain, validationResult } from 'express-validator';
-import { RequestValidationError } from '@sntickety/common-lib';
+import { ValidationChain } from 'express-validator';
 import { User } from '../../model/user';
-import { BadRequestError } from '@sntickety/common-lib';
 import { SignUpController } from '../../controller/signup-controller';
 import { validateRequest } from '@sntickety/common-lib';
 

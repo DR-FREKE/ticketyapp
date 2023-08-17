@@ -7,10 +7,8 @@ import { Ticket } from '../model/tickets';
 const router: Router = Router();
 const validate = validateTicketsBody();
 
-router.get('/all-tickets', authorize, (req: Request, res: Response) => {
-  res.send('this route gets all tickets');
-});
-
-router.post('/create-ticket', authorize, validate, validateRequest, TicketController.createTicket);
+router.get('/tickets', authorize, TicketController.getAllTickets);
+router.get('/tickets/:id', authorize, TicketController.getTicketById);
+router.post('/tickets', authorize, validate, validateRequest, TicketController.createTicket);
 
 export { router as tickerRouter };

@@ -8,7 +8,7 @@ WORKDIR /usr/app
 COPY ./package.json ./
 
 ## install all needed dependencies
-RUN yarn install --only=prod
+RUN yarn install --omit=dev
 
 ## copy remaining files from your work dir to container dir
 COPY ./ ./
