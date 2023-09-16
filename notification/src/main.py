@@ -2,7 +2,7 @@ from sys import prefix;
 from fastapi import FastAPI, Depends;
 import uvicorn;
 from fastapi.middleware.cors import CORSMiddleware;
-from .routes import notification_router
+from .routes import app_router
 
 # initialize fastapi
 app = FastAPI(openapi_url="/api/v1/notification/openapi.json", docs_url="/api/v1/notification/docs");
@@ -25,7 +25,7 @@ app.add_middleware(
 );
 
 ## set route middleware
-app.include_router(notification_router.router, prefix="/api/v1/notification", tags=["notification"])
+app.include_router(app_router.router, prefix="/api/v1/notification", tags=["notification"])
 
 @app.get("/api/v1/notification/welcome")
 async def root():
