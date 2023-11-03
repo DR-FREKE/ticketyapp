@@ -1,7 +1,9 @@
 name: test-auth ## name of the action
 
 on: ## determines when the action should run
-  pull_request # here it runs whenever there is a pull request...it can run on PUSH, PULL_REQUEST, FORK
+  pull_request: # here it runs whenever there is a pull request...it can run on PUSH, PULL_REQUEST, FORK
+    paths: # test on the auth service will only run if actual changes were made on the auth service
+      - 'auth/**'
 
 jobs: ## defines the things we want to do whenever a pull_request is created, re-opened, update etc
   build:
