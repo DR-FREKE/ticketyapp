@@ -34,6 +34,7 @@ const ticketSchema = new Schema(
   },
   {
     toJSON: {
+      // returns the data you want returned
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;

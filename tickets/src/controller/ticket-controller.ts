@@ -31,4 +31,17 @@ export class TicketController {
 
     res.send(ticket); // defaults to status code of 200
   }
+
+  public static async updateTicketById(req: Request, res: Response) {
+    const ticket_id = req.params.id;
+
+    const ticket = await Ticket.findById(ticket_id);
+
+    if (!ticket) throw new NotFoundError();
+
+    ticket.set({
+      title: 'Something new ticket',
+      price: 38,
+    });
+  }
 }
