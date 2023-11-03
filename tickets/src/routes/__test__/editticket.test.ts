@@ -34,4 +34,6 @@ describe('run test cases for updating tickets', () => {
     await request(app).put(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send({ title: 'movie-ticket', price: -20 }).expect(400);
     await request(app).put(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send({ title: 'some title' }).expect(400);
   });
+
+  it('should update the tickets with the right valid input provided', async () => {});
 });
