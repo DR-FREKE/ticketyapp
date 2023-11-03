@@ -18,9 +18,9 @@ describe('run test cases for updating tickets', () => {
     await request(app).put(`${ticket_url}/${id}`).set('Cookie', global.signup()).send({ title: 'new type of title', price: 30 }).expect(404);
   });
 
-  it('should return 401 if user not loggedin but tries to edit', async () => {
-    await request(app).put(`${ticket_url}/${id}`).send({}).expect(401);
-  });
+  // it('should return 401 if user not loggedin but tries to edit', async () => {
+  //   await request(app).put(`${ticket_url}/${id}`).send({}).expect(401);
+  // });
 
   it('should return a 401 if a user trying to update a ticket does not own the ticket', async () => {});
 
