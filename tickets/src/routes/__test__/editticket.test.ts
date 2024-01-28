@@ -5,9 +5,8 @@ import mongoose from 'mongoose';
 
 const ticket_url = '/api/v1/tkts/tickets';
 
-const createTicket = () => {
-  const cookie = global.signup();
-
+// do a bit of dependency injection to this function
+const createTicket = (cookie = global.signup()) => {
   return request(app).post(ticket_url).set('Cookie', cookie).send({ title: 'some title', price: 20 }).expect(201);
 };
 
@@ -22,18 +21,35 @@ describe('run test cases for updating tickets', () => {
     await request(app).put(`${ticket_url}/${id}`).send({}).expect(401);
   });
 
-  it('should return a 401 if a user trying to update a ticket does not own the ticket', async () => {});
+  it('should return a 401 if a user trying to update a ticket does not own the ticket', async () => {
+    const response = createTicket(); // create a ticket and get back the ticket id...when creating a ticket, the userId gets registered as well.
 
-  // it('should return an error if invalid title or price is provided', async () => {
-  //   /** TODO */
-  //   const response = await createTicket();
-  //   const cookie = global.signup();
+    const id = (await response).body.ticket.id;
 
-  //   await request(app).put(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send({ title: '', price: 20 }).expect(400);
-  //   await request(app).put(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send({ price: 20 }).expect(400);
-  //   await request(app).put(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send({ title: 'movie-ticket', price: -20 }).expect(400);
-  //   await request(app).put(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send({ title: 'some title' }).expect(400);
-  // });
+    // console.log((await response).body.ticket);
 
-  it('should update the tickets with the right valid input provided', async () => {});
+    await request(app).put(`${ticket_url}/${id}`).set('Cookie', global.signup()).send({ title: 'changed type', price: 50 }).expect(401);
+  });
+
+  it('should return a 400 error if invalid title or price is provided', async () => {
+    /** TODO */
+    const cookie = global.signup();
+
+    const response = createTicket(cookie); // use same cookie data to create this ticket and use the same cookie data to update the ticket
+    const ticket_id = (await response).body.ticket.id;
+
+    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ title: '', price: 20 }).expect(400);
+    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ price: 20 }).expect(400);
+    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ title: 'movie-ticket', price: -20 }).expect(400);
+    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ title: 'some title' }).expect(400);
+  });
+
+  it('should update the tickets with the right valid input provided', async () => {
+    const cookie = global.signup();
+
+    const response = createTicket(cookie);
+    const ticket_id = (await response).body.ticket.id;
+
+    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ title: 'some title', price: 40 }).expect(204);
+  });
 });

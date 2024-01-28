@@ -10,5 +10,6 @@ const validate = validateTicketsBody();
 router.get('/tickets', authorize, TicketController.getAllTickets);
 router.get('/tickets/:id', authorize, TicketController.getTicketById);
 router.post('/tickets', authorize, validate, validateRequest, TicketController.createTicket);
+router.put('/tickets/:id', authorize, validate, validateRequest, TicketController.editTicketById);
 
 export { router as tickerRouter };
