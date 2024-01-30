@@ -14,7 +14,7 @@ const createTicket = () => {
 describe('run test cases for showing tickets', () => {
   it('returns 404 if ticket is not found', async () => {
     /** when we ren this test, it failed  even if the id was wrong. The error was the id that was passed as mongoose does not
-     * understand the id that was passes. to solve this, we need to generate an ID that mongoose understands.
+     * understand the id that was passed. to solve this, we need to generate an ID that mongoose understands.
      */
     const id = new mongoose.Types.ObjectId().toHexString();
     await request(app).get(`${ticket_url}/${id}`).set('Cookie', global.signup()).send().expect(404);
@@ -33,8 +33,8 @@ describe('run test cases for showing tickets', () => {
     const response = await request(app).post(ticket_url).set('Cookie', cookie).send({ title: 'some title', price: 20 }).expect(201);
     const ticket_response = await request(app).get(`${ticket_url}/${response.body.ticket.id}`).set('Cookie', cookie).send().expect(200);
 
-    expect(ticket_response.body.title).toEqual('some title');
-    expect(ticket_response.body.price).toEqual(20);
+    expect(ticket_response.body.ticket.title).toEqual('some title');
+    expect(ticket_response.body.ticket.price).toEqual(20);
   });
 
   it('it can fetch a list of tickets', async () => {
@@ -47,6 +47,6 @@ describe('run test cases for showing tickets', () => {
 
     const response = await request(app).get(ticket_url).set('Cookie', global.signup()).send().expect(200);
 
-    expect(response.body.length).toEqual(3);
+    expect(response.body.tickets.length).toEqual(3);
   });
 });

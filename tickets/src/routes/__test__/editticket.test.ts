@@ -50,6 +50,11 @@ describe('run test cases for updating tickets', () => {
     const response = createTicket(cookie);
     const ticket_id = (await response).body.ticket.id;
 
-    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ title: 'some title', price: 40 }).expect(204);
+    await request(app).put(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send({ title: 'new title', price: 40 }).expect(204);
+
+    const get_response = await request(app).get(`${ticket_url}/${ticket_id}`).set('Cookie', cookie).send().expect(200);
+
+    expect(get_response.body.ticket.title).toEqual('new title');
+    expect(get_response.body.ticket.price).toEqual(40);
   });
 });
