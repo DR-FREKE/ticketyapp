@@ -52,7 +52,7 @@ global.signup = () => {
 
   // create payload we can use to sign jwt...remember to import jsonwebtoken
   const credentials = {
-    id: '1234jgk67',
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: 'solomonndi96@gmail.com',
   };
 

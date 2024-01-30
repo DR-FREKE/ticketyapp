@@ -4,8 +4,8 @@ import { randomBytes, scrypt } from 'crypto';
 const scryptAsync = promisify(scrypt); // converts callback to promises or async/await
 
 export class PasswordHash {
-  // static methods are directly binded to the class making them class properties
-  //and does not need us to create instance of the class first before we can use them
+  // static methods are directly binded to the class making them related to the class
+  //and does not need us to create instance of the class first before we can use them. static methods do not have access to class instance
 
   public static async toHash(password: string): Promise<string> {
     const salted_password = randomBytes(10).toString('hex'); // generates a random string for us

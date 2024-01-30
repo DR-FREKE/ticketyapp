@@ -29,8 +29,8 @@ app.use(
 );
 
 // setup route middleware
-app.get('/api/vi/tickets/home', (req, res) => res.send('Welcome to tickety Ticket service'));
-app.use('/api/v1/tickets', appRoute);
+app.get('/api/vi/tkts/home', (req, res) => res.send('Welcome to tickety Ticket service'));
+app.use('/api/v1/tkts', appRoute);
 app.all('*', () => {
   throw new NotFoundError();
 });
