@@ -49,6 +49,7 @@ export class TicketController {
     });
 
     await ticket.save();
+    console.log('saved the new data');
 
     res.status(204).send({ message: 'ticket updated', ticket });
   }

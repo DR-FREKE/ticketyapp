@@ -32,8 +32,6 @@ export class SignInController {
       jwt: userJwt,
     };
 
-    console.log('signing in...');
-
     res.status(200).send(existingUser);
   }
 }
