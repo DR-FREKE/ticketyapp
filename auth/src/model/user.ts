@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose';
 import { PasswordHash } from '../services/password';
 
-interface userAttr {
+interface UserAttr {
   email: string;
   password: string;
   firstname: string;
@@ -15,7 +15,7 @@ interface userAttr {
  * */
 // take all the properties from the mongoose.Model interface and send them to UserModel interface
 interface UserModel extends mongoose.Model<UserDoc> {
-  build(attr: userAttr): UserDoc; // i.e the build method should return something with the same property structure as UserDoc
+  build(attr: UserAttr): UserDoc; // i.e the build method should return something with the same property structure as UserDoc
 }
 
 /** an interface that describes the properties that a user document has i.e the properties a single user has.
@@ -60,7 +60,7 @@ const userSchema = new Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        // delete ret.password;
+        delete ret.password;
       },
       versionKey: false,
     },
@@ -84,7 +84,7 @@ userSchema.pre('save', async function (done) {
 
 // how we add a function to a model in mongoose but typescript still won't understand this. To let typescript
 // understand, we need to create an interface and bind it to this user model in this case is the UserModel above.
-userSchema.statics.build = (attr: userAttr) => {
+userSchema.statics.build = (attr: UserAttr) => {
   return new User(attr);
 };
 

@@ -1,14 +1,15 @@
-import { authorize } from '@sntickety/common-lib';
+import { authorize, validateRequest } from '@sntickety/common-lib';
 import { Router, Request, Response } from 'express';
+import { TicketController } from '../controller/ticket-controller';
+import { validateTicketsBody } from '../middleware/body-validator';
+import { Ticket } from '../model/tickets';
 
 const router: Router = Router();
+const validate = validateTicketsBody();
 
-router.get('/all-tickets', authorize, (req: Request, res: Response) => {
-  res.send('this route gets all tickets');
-});
-
-router.post('/create-ticket', authorize, async (req: Request, res: Response) => {
-  res.send({ message: 'create tickets' });
-});
+router.get('/tickets', authorize, TicketController.getAllTickets);
+router.get('/tickets/:id', authorize, TicketController.getTicketById);
+router.post('/tickets', authorize, validate, validateRequest, TicketController.createTicket);
+router.put('/tickets/:id', authorize, validate, validateRequest, TicketController.editTicketById);
 
 export { router as tickerRouter };
