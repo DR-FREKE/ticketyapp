@@ -15,7 +15,7 @@ describe('test request to signin', () => {
   //   await request(app).post('/api/v1/usr/auth/signup').send({ firstname: 'Ndifereke', lastname: 'Solomon', email: 'solomonndi96@gmail.com', password: 'solagbaby', phone: '08077946784' }).expect(201);
   // };
 
-  // run test for incorrect password
+  // run test for incorrect passwords
   it('should fail when provided an incorrect email or password', async () => {
     await global.signup();
     await request(app).post(signin_url).send({ email: 'solomonndi96@gmail.com', password: 'solagbaby96ndi' }).expect(400);
