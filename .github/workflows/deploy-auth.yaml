@@ -13,3 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd auth && docker build -t solomonndi96/auth .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD # for the env referenced below
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }} # gotten from the secret we just created in github settings tab
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
+      - run: docker push solomonndi96/auth # push the image to dockerhub
