@@ -18,3 +18,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }} # gotten from the secret we just created in github settings tab
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
       - run: docker push solomonndi96/auth # push the image to dockerhub
+      - uses: digitalocean/action-doctl@v2
+        with: # use token generated from digital ocean here to have possible access to the cluster in digital ocean
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save ticketing # creates a context in the github container for us to be able to communicate with the digital ocean cluster
